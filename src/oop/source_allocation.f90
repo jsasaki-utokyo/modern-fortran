@@ -11,13 +11,13 @@ contains
 
     subroutine s_set(b)
         ! Set lower and upper bounds
+        ! 次行はtype(t)でもよいが，tを拡張した型に対応できるclass(t)が汎用的
         class(t), intent(in) :: b(:)                                 ! 形状引継ぎ仮配列 assumed-shape array
         ! 割付仮配列も可能
-        ! 割付仮配列とする場合の要件：実引数も割付配列，実引数と仮引数は同一type，引用仕様明示
-        ! 同一typeの条件より，仮引数をclassにするとエラーとなる
-        ! type(t), intent(in), allocatable  :: b(:)                   ! 割付仮配列  
+        !   割付仮配列とする場合の要件：実引数も割付配列，実引数と仮引数は同一type，引用仕様明示
+        !   同一typeの条件より，仮引数をclassにするとエラーとなる
+        !   type(t), intent(in), allocatable  :: b(:)                   ! 割付仮配列  
         !!! class(t), intent(in), allocatable  :: b(:)                ! Error
-        ! 次行はtype(t)でもよいが，tを拡張した型に対応できるclass(t)が汎用的
         class(t), allocatable :: a(:)
         allocate (a(lbound(b,1):ubound(b,1)), source=b)  ! 配列indexの下限と上限を指定
         print *, 's_set a=', a(:)%x, a(:)%y
